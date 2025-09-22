@@ -17,5 +17,7 @@ The dashboard now correctly displays the user's name by fetching it from the dat
 Key Accomplishments Today: 🚀
 Authentication Fixes: Successfully resolved bugs in the login and registration process. The user's name is now correctly displayed on the dashboard after being fetched from the database.
 
+Dashboard & EJS Templating: Corrected EJS syntax errors and a server-side route issue to correctly render the tasks page. The page now dynamically displays tasks using a simple loop.
+
 
 
