@@ -22,7 +22,7 @@ Authentication Fixes: Successfully resolved bugs in the login and registration p
 🦋Front-end Enhancements: Added icons to the task list using Heroicons, which improves the user experience and prepares the application for future update and delete features.
 
 
-# Working on Task Page
+#  📟Working on Task Page
 
 
 
