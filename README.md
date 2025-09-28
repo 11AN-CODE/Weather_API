@@ -24,6 +24,6 @@ Authentication Fixes: Successfully resolved bugs in the login and registration p
 
 ##  📟Working on Task Page
 
-
+Making a page where the user can se what task they have created.
 
 
