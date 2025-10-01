@@ -25,6 +25,8 @@ In Dashboard, there is the add task button we have created.
 
 ##  📟Working on Task Page
 
+The dashboard page is redirected to the task page.
 Making a page where the user can see what task they have created.
+
 
 
