@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 flex  flex-col items-center justify-center min-h-screen relative">
+    <h1 class="text-7xl text-blue-800 ">Weather Data </h1>
+    <div class="absolute top-4 right-4">
+        <a class="border-2 text-2xl text-red-800 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors" href="/logout">Logout</a>
+    </div>
+    
+        <div class='contain flex flex-col  items-center justify-center space-y-4 bg-purple-100  rounded-lg m-3'>
+            <form action="/fetch-weather" method="get">
+            <div class="container bg-white m-40 p-8 rounded-lg shadow-lg max-w-sm w-full"><input class="border-2 text-2xl text-red-800 border-yellow-800 " type="text" name="city" placeholder="Enter City">
+            </div>
+            
+            <input class=" px-4 py-2 font-semibold text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" type="submit" value="Get Weather">
+        </form>
+
+    <% if (weatherData) { %>
+                <div class="pt-4 mt-4 border-t border-gray-200">
+                    <h3 class="text-xl font-bold text-center"><%= weatherData.name %></h3>
+                    <div class="text-center mt-2">
+                        <p class="text-lg">Temperature: <span class="font-bold"><%= weatherData.main.temp %> °C</span></p>
+                        <p class="text-lg">Conditions: <span class="font-bold capitalize"><%= weatherData.weather[0].description %></span></p>
+                        <p class="text-lg">Humidity: <span class="font-bold"><%= weatherData.main.humidity %>%</span></p>
+                    </div>
+                </div>
+            <% } %>
+
+            <% if (error) { %>
+                <p class="text-red-600 text-center font-semibold"><%= error %></p>
+            <% } %>
+</div>
+        
+        
+   
+    
+</body>
+</html>

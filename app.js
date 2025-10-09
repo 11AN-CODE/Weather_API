@@ -1,127 +1,165 @@
-const express= require('express');
+const  express=require('express');
 const app=express();
-const user_accnt=require('./models/users');
+const usermodel=require('./models/users');
 const bcrypt=require("bcrypt");
 const cookies = require('cookie-parser');
 const jwt=require("jsonwebtoken");
-const axios=require("axios");
-const API_KEY = "7f382d5763a5a01928f37cdf58b1c3be";
+const axios = require('axios');
+const port = process.env.PORT || 5000
 
 
 
-app.set('view engine',"ejs");
+
+app.set("view engine","ejs");
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookies());
+ 
+function isLoggedIn(req,res,next){
+    if(!req.cookies.token){
+        res.redirect('/login')
+    }
+    try{
+        let data=jwt.verify(req.cookies.token,"hhhh")
+        next()
+    }catch(error){
+        console.error("JWT Verification Error:", error.message);
+        // Redirect to login on any verification error
+        res.redirect('/login');
+    }
 
-
+}
 
 
 app.get('/',(req,res)=>{
     res.render('index');
+})
+
+app.post('/register',async (req,res)=>{
+    let{name,email,password}=req.body;
+
+    let alreadyregsitered= await usermodel.findOne({email});
+    if(alreadyregsitered) return res.status(500).send("USer already registered");
+
+    bcrypt.genSalt(10,(err,salt)=>{
+        bcrypt.hash(password,salt,async(err,hash)=>{
+       let registeredUser= await usermodel.create({
+        name,
+        email,
+        password:hash
 
 })
-function isLoggedIn(req, res, next) {
-    if (!req.cookies.token) {
-        return res.status(401).send("You are not authenticated.");
-    }
+ let token=jwt.sign({email:email,userid:registeredUser._id},"hhhh")
+    res.cookie('token',token);
+    res.send(registeredUser);
     
-    try {
-        // Verify the token using the same secret key you used for signing
-        const decodedToken = jwt.verify(req.cookies.token, "bbbbbb"); 
-        
-        // Attach the decoded user data to the request object
-        req.user = decodedToken;
-        
-        // Call next() to proceed to the next middleware or route handler
-        next();
-        
-    } catch (err) {
-        // Handle cases where the token is invalid or expired
-        return res.status(403).send("Invalid or expired token.");
-    }
-}
-app.post('/register',async(req,res)=>{
-    let{email,password,name,username}=req.body;
-    let already_regitser=await user_accnt.findOne({email})
-    if(already_regitser){
-        return res.send("User already registered,please login");
-    }
-    bcrypt.genSalt(10,async(err,salt)=>{
-        bcrypt.hash(password,salt,async(err,hash)=>{
-        let user_register= await user_accnt.create({
-        
-        name:name,
-        email:email,
-        password:hash,
-        username:username
-    })
+    
+
+
 
         })
     })
+
    
-    res.redirect('/login');
+
+
+
+
+
+
+    
+
 })
+
+
 
 app.get('/login',(req,res)=>{
     res.render('login')
 })
 
 
-
 app.post('/login',async(req,res)=>{
     let {email,password}=req.body;
-    let user_login=await user_accnt.findOne({email});
-    if(!user_login){
-        res.status(400).send("user not registered");
+    let loggedin=await usermodel.findOne({email})
+    if(!loggedin){
+        console.log("Not Login")
+    }
+    else{
+        bcrypt.compare(password,loggedin.password,(err,result)=>{
+            if(result){
+                let token=jwt.sign({email:email,userid:loggedin._id},"hhhh")
+                res.cookie('token',token)
+                res.redirect('/dashboard')
+                
+
+
+            }
+             else res.redirect('/login')
+        })
 
     }
-    try {
-        const isMatch = await bcrypt.compare(password, user_login.password);
 
-        if (isMatch) {
-            let tt = jwt.sign({ email: user_login.email, id: user_login._id }, "bbbbbb");
-            res.cookie("token", tt);
-            return res.redirect('/some-protected-route');
-        } else {
-            return res.redirect('/');
-        }
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send("Server error");
+   
+})
+
+
+app.get('/dashboard', isLoggedIn, (req, res) => {
+  // Pass null values to prevent the EJS template from throwing an error
+  res.render('dashboard', { weatherData: null, error: null });
+});
+
+app.get("/weather", isLoggedIn, (req, res) => {
+  res.render("dashboard", { weatherData: null, error: null });
+});
+
+app.get('/fetch-weather', isLoggedIn, async (req, res) => {
+    const city = req.query.city;
+    if (!city) {
+        return res.render('dashboard', { weatherData: null, error: 'City parameter is required' });
+    }
+
+    // Access the environment variable directly from the process.env object
+    const API_KEY = process.env.WEATHER_API_KEY;
+
+    // A check to ensure the key is set, which is good practice
+    if (!API_KEY) {
+        console.error("Error: WEATHER_API_KEY environment variable is not set.");
+        return res.render('dashboard', { weatherData: null, error: 'Internal server error: API key missing.' });
+    }
+
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+
+    try {
+        const response = await axios.get(apiUrl);
+        const weatherData = response.data;
+        
+        // Render the weather page with the fetched data
+        res.render('dashboard', { weatherData: weatherData, error: null });
+    } catch (error) {
+        console.error("Weather API error:", error.response ? error.response.data : error.message);
+        const errorMessage = error.response && error.response.status === 400
+            ? 'Invalid city or location.'
+            : 'Error fetching weather data. Please try again.';
+
+        // Render the weather page with an error message
+        res.render('dashboard', { weatherData: null, error: errorMessage });
     }
 });
 
-app.get("/logout",(req,res)=>{
-    res.clearCookie("token");
+
+
+
+
+
+app.get('/logout',(req,res)=>{ //..means not render jo cookie jiss name se set kari thi usse bas blank krdo
+    res.clearCookie('token'); 
+    
     res.redirect('/login');
-})
+});
 
 
-app.get('/weather/:city',(req,res)=>{
-    const city=req.params.city;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=7f382d5763a5a01928f37cdf58b1c3be&units=metric`;
-    try {
-        // Use await to wait for the API response
-        const response = await axios.get(url);
-        const weatherData = response.data;
 
-        // Extract and format the specific data you want
-        const weatherInfo = {
-            temperature: weatherData.main.temp,
-            humidity: weatherData.main.humidity,
-            conditions: weatherData.weather[0].description
-        };
+app.listen(port,()=>{
+    console.log(`server running on ${port}` )
 
-        // Send the formatted data as a JSON response
-        res.json(weatherInfo);
-    } catch (err) {
-        // Handle errors, such as a city not being found (404)
-        if (err.response && err.response.status === 404) {
-            return res.status(404).json({ message: "City not found." });
-        }
-        console.error(err);
-        return res.status(500).json({ message: "Error fetching weather data." });
-    }
-})
-
-app.listen(3000);
+});
