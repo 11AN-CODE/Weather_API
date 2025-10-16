@@ -69,3 +69,16 @@ GET /fetch-weather?city=<city_name>: Fetches weather data for a specified city (
 
 GET /logout: Clears the session cookie and logs the user out.
 
+🛠️ Technology Stack
+Backend: Node.js, Express.js
+
+Database: (This project assumes a simple data store or a database for user models)
+
+Templating: EJS
+
+Styling: Tailwind CSS
+
+Security: JWT, bcrypt
+
+HTTP Requests: axios
+
