@@ -58,7 +58,7 @@ Log in with your new credentials.
 
 Once on the dashboard, enter a city name and click "Get Weather" to see the results.
 
-📄 API Endpoints
+## 📄 API Endpoints
 POST /register: Registers a new user.
 
 POST /login: Authenticates a user and sets a session cookie.
@@ -69,10 +69,10 @@ GET /fetch-weather?city=<city_name>: Fetches weather data for a specified city (
 
 GET /logout: Clears the session cookie and logs the user out.
 
-🛠️ Technology Stack
+## 🛠️ Technology Stack
 Backend: Node.js, Express.js
 
-Database: (This project assumes a simple data store or a database for user models)
+Database: Mongo DB
 
 Templating: EJS
 
