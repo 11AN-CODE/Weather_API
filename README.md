@@ -81,6 +81,9 @@ Styling: Tailwind CSS
 Security: JWT, bcrypt
 
 HTTP Requests: axios
+## Live Deployment
+
+You can access the live Weather API here: [weather-api-one-vert.vercel.app](https://weather-api-one-vert.vercel.app/)
 ##
 <img width="587" height="561" alt="image" src="https://github.com/user-attachments/assets/77a3c2f1-3a57-4770-87f2-1dcd862a5461" />
 <img width="831" height="337" alt="image" src="https://github.com/user-attachments/assets/706eb03e-02dc-49c1-bb79-f463c2bd1e86" />
