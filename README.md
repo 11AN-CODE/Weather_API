@@ -82,7 +82,7 @@ Security: JWT, bcrypt
 
 HTTP Requests: axios
 ##
-<img width="868" height="599" alt="image" src="https://github.com/user-attachments/assets/30a45bd1-a62e-416a-bcd1-38ee7b69b4da" />
+<img width="587" height="561" alt="image" src="https://github.com/user-attachments/assets/77a3c2f1-3a57-4770-87f2-1dcd862a5461" />
 <img width="831" height="337" alt="image" src="https://github.com/user-attachments/assets/706eb03e-02dc-49c1-bb79-f463c2bd1e86" />
 <img width="1145" height="806" alt="image" src="https://github.com/user-attachments/assets/cbcc9e2b-5fb5-459a-8e97-0a0a5f2cff4d" />
 
