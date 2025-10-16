@@ -14,7 +14,7 @@ Templating: Renders dynamic content using EJS (Embedded JavaScript) for a clean 
 
 Environment Variables: Securely manages sensitive information like the API key using environment variables.
 
-🚀 Getting Started
+## 🚀 Getting Started
 Prerequisites
 Node.js (version 20.6.0 or higher is recommended)
 
