@@ -1,32 +1,16 @@
-# Weather_API
-## for fetching weather data 
+# Weather API 🌤️
+This is a web application that provides real-time weather data. It's built with Node.js and Express.js and demonstrates how to integrate with a third-party API, use a front-end templating engine, and handle user authentication.
 Integrate the OpenWeatherMap API
 Use a library like axios or the built-in fetch to make a GET request to this URL.
-## Day 3🌥️
- 
 
- Made major progress on the weather API! 🌤️
+✨ Features
+User Authentication: Secure user registration and login using JWT (JSON Web Tokens) and bcrypt for password hashing.
 
-Successfully implemented user authentication with JWTs.
+Protected Routes: Weather data is only accessible to authenticated users.
 
-Fixed critical bugs in the login and registration flow.
+Third-Party API Integration: Fetches real-time weather data from the OpenWeatherMap API.
 
-The dashboard now correctly displays the user's name by fetching it from the database.
+Templating: Renders dynamic content using EJS (Embedded JavaScript) for a clean user interface.
 
-## Day4 🌥️🌥
-Key Accomplishments Today: 🚀
-Authentication Fixes: Successfully resolved bugs in the login and registration process. The user's name is now correctly displayed on the dashboard after being fetched from the database.
-
-〰️Dashboard & EJS Templating: Corrected EJS syntax errors and a server-side route issue to correctly render the tasks page. The page now dynamically displays tasks using a simple loop.
-In Dashboard, there is the add task button we have created.
-
-🦋Front-end Enhancements: Added icons to the task list using Heroicons, which improves the user experience and prepares the application for future update and delete features.
-
-
-##  📟Working on Task Page
-
-The dashboard page is redirected to the task page.
-Making a page where the user can see what task they have created.
-
-
+Environment Variables: Securely manages sensitive information like the API key using environment variables.
 
