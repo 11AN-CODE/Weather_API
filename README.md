@@ -49,3 +49,23 @@ To start the server, use the --env-file flag to load your environment variables.
 Bash
 
 node --env-file=.env app.js
+Usage
+Open your browser and navigate to http://localhost:5000.
+
+Register a new user on the homepage.
+
+Log in with your new credentials.
+
+Once on the dashboard, enter a city name and click "Get Weather" to see the results.
+
+📄 API Endpoints
+POST /register: Registers a new user.
+
+POST /login: Authenticates a user and sets a session cookie.
+
+GET /dashboard: Renders the main weather application page (protected).
+
+GET /fetch-weather?city=<city_name>: Fetches weather data for a specified city (protected).
+
+GET /logout: Clears the session cookie and logs the user out.
+
