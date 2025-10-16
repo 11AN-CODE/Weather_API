@@ -14,3 +14,38 @@ Templating: Renders dynamic content using EJS (Embedded JavaScript) for a clean 
 
 Environment Variables: Securely manages sensitive information like the API key using environment variables.
 
+🚀 Getting Started
+Prerequisites
+Node.js (version 20.6.0 or higher is recommended)
+
+A code editor like VS Code
+
+An API key from OpenWeatherMap
+
+Installation
+Clone this repository to your local machine:
+
+Bash
+
+git clone <repository_url>
+cd <project_folder>
+Install the required packages:
+
+Bash
+
+npm install express bcrypt jsonwebtoken cookie-parser axios
+Configuration
+Create a .env file in the root of your project.
+
+Add your OpenWeatherMap API key to the file.
+
+Bash
+
+WEATHER_API_KEY=your_open_weather_map_api_key
+PORT=5000
+Running the Application
+To start the server, use the --env-file flag to load your environment variables.
+
+Bash
+
+node --env-file=.env app.js
